@@ -37,7 +37,8 @@ public class Ims {
 		}
 		
 		init(username, password);
-
+		returnToPrevious = false;
+		
 		LOGGER.info("Which entity would you like to use?");
 		Domain.printDomains();
 
