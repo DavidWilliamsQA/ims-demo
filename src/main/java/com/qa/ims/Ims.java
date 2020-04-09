@@ -22,6 +22,7 @@ public class Ims {
 
 	public static final Logger LOGGER = Logger.getLogger(Ims.class);
 	Boolean returnToStart = true;
+	Boolean returnToPrevious = false; ;
 	String username = "";
 	String password = "";
 	
@@ -54,10 +55,14 @@ public class Ims {
 		case CUSTOMER:
 			CustomerController customerController = new CustomerController(
 					new CustomerServices(new CustomerDaoMysql(username, password)));
+			
 			doAction(customerController, action);
 			
-			Action.printSecondaryActions();
-			action = Action.getAction();
+			if(!returnToPrevious) {
+				Action.printSecondaryActions();
+				action = Action.getAction();
+			}
+
 			imsSystem();
 			break;
 		case ITEM:
@@ -91,6 +96,7 @@ public class Ims {
 			crudController.delete();
 			break;
 		case RETURN:
+			returnToPrevious = true;
 			break;
 		case BEGINNING:
 			returnToStart = true;
