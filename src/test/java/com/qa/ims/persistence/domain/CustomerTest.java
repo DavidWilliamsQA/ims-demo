@@ -25,6 +25,8 @@ public class CustomerTest {
 		assertNotNull(customer.getId());
 		assertNotNull(customer.getFirstName());
 		assertNotNull(customer.getSurname());
+		assertNotNull(customer.getEmail());
+		assertNotNull(customer.getPhone());
 		
 		customer.setId(null);
 		assertNull(customer.getId());
@@ -32,6 +34,10 @@ public class CustomerTest {
 		assertNull(customer.getFirstName());
 		customer.setSurname(null);
 		assertNull(customer.getSurname());
+		customer.setEmail(null);
+		assertNull(customer.getEmail());
+		customer.setPhone(null);
+		assertNull(customer.getPhone());
 		
 	}
 	
