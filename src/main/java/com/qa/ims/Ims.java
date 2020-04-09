@@ -37,18 +37,20 @@ public class Ims {
 		}
 		
 		init(username, password);
+		
 		returnToPrevious = false;
 		
 		LOGGER.info("Which entity would you like to use?");
+		
 		Domain.printDomains();
-
 		Domain domain = Domain.getDomain();
 		
 		if(domain == Domain.valueOf("STOP")) {
 		System.exit(0);
 		}
 		
-		LOGGER.info("What would you like to do with " + domain.name().toLowerCase() + ":");	
+		LOGGER.info("What would you like to do with " + domain.name().toLowerCase() + "?:");
+		
 		Action.printActions();
 		Action action = Action.getAction();
 
@@ -71,7 +73,6 @@ public class Ims {
 		case ORDER:
 			break;
 		case STOP:
-			//returnToPreviousDomain = true;
 			break;
 		default:
 			break;
