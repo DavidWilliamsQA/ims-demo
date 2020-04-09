@@ -21,21 +21,32 @@ import com.qa.ims.utils.Utils;
 public class Ims {
 
 	public static final Logger LOGGER = Logger.getLogger(Ims.class);
-
+	Boolean returnToStart = true;
+	String username = "";
+	String password = "";
+	
 	public void imsSystem() {
-		LOGGER.info("What is your username");
-		String username = Utils.getInput();
-		LOGGER.info("What is your password");
-		String password = Utils.getInput();
 
+		while(returnToStart) {
+		LOGGER.info("What is your username");
+		username = Utils.getInput();
+		LOGGER.info("What is your password");
+		password = Utils.getInput();
+		returnToStart = false;
+		}
+		
 		init(username, password);
 
 		LOGGER.info("Which entity would you like to use?");
 		Domain.printDomains();
 
 		Domain domain = Domain.getDomain();
-		LOGGER.info("What would you like to do with " + domain.name().toLowerCase() + ":");
-
+		
+		if(domain == Domain.valueOf("STOP")) {
+		System.exit(0);
+		}
+		
+		LOGGER.info("What would you like to do with " + domain.name().toLowerCase() + ":");	
 		Action.printActions();
 		Action action = Action.getAction();
 
@@ -44,12 +55,17 @@ public class Ims {
 			CustomerController customerController = new CustomerController(
 					new CustomerServices(new CustomerDaoMysql(username, password)));
 			doAction(customerController, action);
+			
+			Action.printSecondaryActions();
+			action = Action.getAction();
+			imsSystem();
 			break;
 		case ITEM:
 			break;
 		case ORDER:
 			break;
 		case STOP:
+			//returnToPreviousDomain = true;
 			break;
 		default:
 			break;
@@ -57,13 +73,16 @@ public class Ims {
 
 	}
 
+	
 	public void doAction(CrudController<?> crudController, Action action) {
+		//while (returnToPrevious) {
 		switch (action) {
 		case CREATE:
 			crudController.create();
 			break;
 		case READ:
 			crudController.readAll();
+			//imsSystem();
 			break;
 		case UPDATE:
 			crudController.update();
@@ -73,8 +92,13 @@ public class Ims {
 			break;
 		case RETURN:
 			break;
+		case BEGINNING:
+			returnToStart = true;
+			imsSystem();
+			break;
 		default:
 			break;
+		//}
 		}
 	}
 
