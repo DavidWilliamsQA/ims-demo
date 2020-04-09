@@ -1,2 +1,2 @@
 create database if not exists ims;
-create table if not exists ims.customers(id int primary key auto_increment, first_name varchar(40), surname varchar(40));
+CREATE TABLE if not exists ims.customer_table(customer_id int AUTO_INCREMENT, first_name varchar(100) NOT NULL, surname varchar(100) NOT NULL, email varchar(150) NOT NULL, phone_number varchar(100) NOT NULL, UNIQUE(customer_id), PRIMARY KEY(customer_id));

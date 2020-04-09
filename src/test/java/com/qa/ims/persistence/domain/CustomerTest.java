@@ -16,8 +16,8 @@ public class CustomerTest {
 	
 	@Before
 	public void setUp() {
-		customer = new Customer(1L, "Chris", "Perrins");
-		other = new Customer(1L, "Chris", "Perrins");
+		customer = new Customer(1L, "Chris", "Perrins","uhfe", "jefie");
+		other = new Customer(1L, "Chris", "Perrins", "ybey", "yeu");
 	}
 	
 	@Test

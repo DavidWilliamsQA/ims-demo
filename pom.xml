@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.qa.ims</groupId>
-	<artifactId>chris-ims</artifactId>
+	<artifactId>DavidWilliams-SoftwareMarch16</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
@@ -44,6 +44,7 @@
 	</dependencies>
 
 	<build>
+	<finalName>${project.name}</finalName>
 		<plugins>
 		<!-- Creates a jar for the code (does not contain other dependencies which are needed for the project to run out of the box) -->
 			<plugin>
