@@ -68,6 +68,7 @@ public class CustomerController implements CrudController<Customer>{
 		String firstName = getInput();
 		LOGGER.info("Please enter a surname");
 		String surname = getInput();
+		LOGGER.info("Please enter an email address");
 		String email = getInput();
 		LOGGER.info("Please enter a phone number");
 		String phone = getInput();
