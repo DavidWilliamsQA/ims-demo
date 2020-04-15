@@ -68,10 +68,9 @@ public class Customer {
 		this.surname = surname;
 	}
 
-	
 	@Override
 	public String toString() {
-		return "id:" + id + ", firstName:" + firstName + ", surname:" + surname + ", Email:" + email
+		return "customer id:" + id + ", firstName:" + firstName + ", surname:" + surname + ", Email:" + email
 				+ ", Phone:" + phone;
 	}
 
