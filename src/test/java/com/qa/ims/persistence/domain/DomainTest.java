@@ -14,7 +14,7 @@ public class DomainTest {
 	
 	@Test
 	public void itemTest() {
-		Domain domain = Domain.ITEM;
+		Domain domain = Domain.PRODUCT;
 		assertTrue(domain.getDescription().toLowerCase().contains("item"));
 	}
 	

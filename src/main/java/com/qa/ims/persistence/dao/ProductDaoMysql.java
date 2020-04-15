@@ -13,33 +13,33 @@ import org.apache.log4j.Logger;
 import com.qa.ims.persistence.domain.Product;
 
 public class ProductDaoMysql implements Dao<Product> {
-	
+
 	public static final Logger LOGGER = Logger.getLogger(ProductDaoMysql.class);
-	
+
 	private String connectionUrl;
 	private String username;
 	private String password;
-	
+
 	public ProductDaoMysql(String username, String password) {
 		this.connectionUrl = "jdbc:mysql://35.240.38.154:3306/ims";
 		this.username = username;
 		this.password = password;
 	}
-	
+
 	public ProductDaoMysql(String connectionUrl, String username, String password) {
 		this.connectionUrl = connectionUrl;
 		this.username = username;
 		this.password = password;
 	}
 
-	Product productFromResultSet(ResultSet resultSet) throws SQLException{
+	Product productFromResultSet(ResultSet resultSet) throws SQLException {
 		Long id = resultSet.getLong("product_id");
 		String name = resultSet.getString("name");
 		Double price = resultSet.getDouble("price");
 		Integer stock = resultSet.getInt("stock_remaining");
 		return new Product(id, name, price, stock);
 	}
-	
+
 	@Override
 	public List<Product> readAll() {
 		try (Connection connection = DriverManager.getConnection(connectionUrl, username, password);
@@ -56,11 +56,12 @@ public class ProductDaoMysql implements Dao<Product> {
 		}
 		return new ArrayList<>();
 	}
-	
+
 	public Product readLatest() {
 		try (Connection connection = DriverManager.getConnection(connectionUrl, username, password);
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM product_table ORDER BY product_id DESC LIMIT 1");) {
+				ResultSet resultSet = statement
+						.executeQuery("SELECT * FROM product_table ORDER BY product_id DESC LIMIT 1");) {
 			resultSet.next();
 			return productFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -74,8 +75,8 @@ public class ProductDaoMysql implements Dao<Product> {
 	public Product create(Product product) {
 		try (Connection connection = DriverManager.getConnection(connectionUrl, username, password);
 				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("insert into product_table(name, price, stock_remaining) values('" + product.getName() + "', '"  
-				+  product.getPrice() + "', '" +  product.getStock() + "' )");
+			statement.executeUpdate("insert into product_table(name, price, stock_remaining) values('"
+					+ product.getName() + "', '" + product.getPrice() + "', '" + product.getStock() + "' )");
 			return readLatest();
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
@@ -83,7 +84,7 @@ public class ProductDaoMysql implements Dao<Product> {
 		}
 		return null;
 	}
-	
+
 	public Product readProduct(Long id) {
 		try (Connection connection = DriverManager.getConnection(connectionUrl, username, password);
 				Statement statement = connection.createStatement();
@@ -109,6 +110,7 @@ public class ProductDaoMysql implements Dao<Product> {
 			LOGGER.error(e.getMessage());
 		}
 		return null;
+
 	}
 
 	@Override

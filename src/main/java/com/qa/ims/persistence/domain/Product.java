@@ -5,7 +5,7 @@ public class Product {
 	private String name;
 	private double price;
 	private int stock;
-			
+
 	public Product(String name, double price, int stock) {
 		this.name = name;
 		this.price = price;
@@ -18,36 +18,42 @@ public class Product {
 		this.price = price;
 		this.stock = stock;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public double getPrice() {
 		return price;
 	}
+
 	public void setPrice(double price) {
 		this.price = price;
 	}
+
 	public int getStock() {
 		return stock;
 	}
+
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
-	
-	
+
 	@Override
 	public String toString() {
-		return "id=" + id + ", name:" + name + ", price:" + price + ", stock:" + stock;
+		return "product id:" + id + ", name:" + name + ", price:" + price + ", stock:" + stock;
 	}
 
 	@Override
@@ -62,6 +68,7 @@ public class Product {
 		result = prime * result + stock;
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -87,7 +94,5 @@ public class Product {
 			return false;
 		return true;
 	}
-	
-	
 
 }

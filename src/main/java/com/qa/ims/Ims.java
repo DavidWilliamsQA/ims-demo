@@ -70,7 +70,7 @@ public class Ims {
 			}
 			imsSystem();
 			break;
-		case ITEM:
+		case PRODUCT:
 			ProductController productController = new ProductController(
 					new ProductServices(new ProductDaoMysql(username, password)));
 			doAction(productController, action);
