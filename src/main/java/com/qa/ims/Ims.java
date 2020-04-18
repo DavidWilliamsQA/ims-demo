@@ -24,36 +24,36 @@ import com.qa.ims.utils.Utils;
 public class Ims {
 
 	public static final Logger LOGGER = Logger.getLogger(Ims.class);
-	Boolean returnToStart = true;
-	Boolean returnToPrevious = false; ;
+	boolean returnToStart = true;
+	boolean returnToPrevious = false;
 	String username = "";
 	String password = "";
-	
+
 	public void imsSystem() {
 
-		while(returnToStart) {
-		LOGGER.info("What is your username");
-		username = Utils.getInput();
-		LOGGER.info("What is your password");
-		password = Utils.getInput();
-		returnToStart = false;
+		while (returnToStart) {
+			LOGGER.info("What is your username");
+			username = Utils.getInput();
+			LOGGER.info("What is your password");
+			password = Utils.getInput();
+			returnToStart = false;
 		}
-		
+
 		init(username, password);
-		
+
 		returnToPrevious = false;
-		
+
 		LOGGER.info("Which entity would you like to use?");
-		
+
 		Domain.printDomains();
 		Domain domain = Domain.getDomain();
-		
-		if(domain == Domain.valueOf("STOP")) {
-		System.exit(0);
+
+		if (domain == Domain.valueOf("STOP")) {
+			System.exit(0);
 		}
-		
+
 		LOGGER.info("What would you like to do with " + domain.name().toLowerCase() + "?:");
-		
+
 		Action.printActions();
 		Action action = Action.getAction();
 
@@ -61,12 +61,12 @@ public class Ims {
 		case CUSTOMER:
 			CustomerController customerController = new CustomerController(
 					new CustomerServices(new CustomerDaoMysql(username, password)));
-			
 			doAction(customerController, action);
-			
-			if(!returnToPrevious) {
+
+			if (!returnToPrevious) {
 				Action.printSecondaryActions();
 				action = Action.getAction();
+				doAction(customerController, action);
 			}
 			imsSystem();
 			break;
@@ -74,12 +74,13 @@ public class Ims {
 			ProductController productController = new ProductController(
 					new ProductServices(new ProductDaoMysql(username, password)));
 			doAction(productController, action);
-			
-			if(!returnToPrevious) {
+
+			if (!returnToPrevious) {
 				Action.printSecondaryActions();
 				action = Action.getAction();
+				doAction(productController, action);
 			}
-			imsSystem();			
+			imsSystem();
 			break;
 		case ORDER:
 			break;
@@ -91,7 +92,6 @@ public class Ims {
 
 	}
 
-	
 	public void doAction(CrudController<?> crudController, Action action) {
 		switch (action) {
 		case CREATE:

@@ -20,12 +20,12 @@ public class Customer {
 		this.phone = phone;
 	}
 
-	public Customer(Long id, String firstName, String surname, String Email, String Phone) {
+	public Customer(Long id, String firstName, String surname, String email, String phone) {
 		this.id = id;
 		this.firstName = firstName;
 		this.surname = surname;
-		this.email = Email;
-		this.phone = Phone;
+		this.email = email;
+		this.phone = phone;
 	}
 
 	public String getEmail() {
