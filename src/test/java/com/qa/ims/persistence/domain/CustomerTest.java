@@ -126,8 +126,46 @@ public class CustomerTest {
 	}
 
 	@Test
+	public void nullEmail() {
+		customer.setEmail(null);
+		assertFalse(customer.equals(other));
+	}
+
+	@Test
+	public void nullEmailOnBoth() {
+		customer.setEmail(null);
+		other.setEmail(null);
+		assertTrue(customer.equals(other));
+	}
+
+	@Test
+	public void otherEmailDifferent() {
+		other.setEmail("tris.perrins@hotmail.com");
+		assertFalse(customer.equals(other));
+	}
+
+	@Test
+	public void nullPhone() {
+		customer.setPhone(null);
+		assertFalse(customer.equals(other));
+	}
+
+	@Test
+	public void nullPhoneOnBoth() {
+		customer.setPhone(null);
+		other.setPhone(null);
+		assertTrue(customer.equals(other));
+	}
+
+	@Test
+	public void otherPhoneDifferent() {
+		other.setPhone("4444555");
+		assertFalse(customer.equals(other));
+	}
+
+	@Test
 	public void constructorWithoutId() {
-		Customer customer = new Customer("Chris", "Perrins");
+		Customer customer = new Customer("Chris", "Perrins", "Chris.p@hotmail.com", "0759862415");
 		assertNull(customer.getId());
 		assertNotNull(customer.getFirstName());
 		assertNotNull(customer.getSurname());
@@ -140,8 +178,8 @@ public class CustomerTest {
 
 	@Test
 	public void hashCodeTestWithNull() {
-		Customer customer = new Customer(null, null);
-		Customer other = new Customer(null, null);
+		Customer customer = new Customer(null, null, null, null);
+		Customer other = new Customer(null, null, null, null);
 		assertEquals(customer.hashCode(), other.hashCode());
 	}
 

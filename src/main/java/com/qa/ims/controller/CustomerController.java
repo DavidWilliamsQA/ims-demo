@@ -36,6 +36,7 @@ public class CustomerController implements CrudController<Customer> {
 		for (Customer customer : customers) {
 			LOGGER.info(customer.toString());
 		}
+		LOGGER.info("END");
 		return customers;
 	}
 

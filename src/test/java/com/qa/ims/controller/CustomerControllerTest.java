@@ -35,12 +35,17 @@ public class CustomerControllerTest {
 	private CustomerController customerController;
 
 	@Test
+	public void getInputTest() {
+
+	}
+
+	@Test
 	public void readAllTest() {
 		CustomerController customerController = new CustomerController(customerServices);
 		List<Customer> customers = new ArrayList<>();
-		customers.add(new Customer("Chris", "P"));
-		customers.add(new Customer("Rhys", "T"));
-		customers.add(new Customer("Nic", "J"));
+		customers.add(new Customer(1L, "Chris", "Atkinson", "Atkin.Chris@ymail.com", "0745267712"));
+		customers.add(new Customer(2L, "Robin", "Hood", "Rhood@gmail.com", "07548862799"));
+		customers.add(new Customer(3L, "Norton", "Internet", "InterNort@yahoo.com", "2080080808"));
 		Mockito.when(customerServices.readAll()).thenReturn(customers);
 		assertEquals(customers, customerController.readAll());
 	}

@@ -28,6 +28,7 @@ public class ProductController implements CrudController<Product> {
 		for (Product prod : product) {
 			LOGGER.info(prod.toString());
 		}
+		LOGGER.info("END");
 		return product;
 	}
 

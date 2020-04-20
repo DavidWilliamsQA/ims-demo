@@ -21,7 +21,7 @@ public class CustomerServicesTest {
 
 	@Test
 	public void customerServicesCreate() {
-		Customer customer = new Customer("chris", "perrins");
+		Customer customer = new Customer("chris", "perrins", "c.pers@yahoo.com", "777333999");
 		customerServices.create(customer);
 		Mockito.verify(customerDao, Mockito.times(1)).create(customer);
 	}
@@ -34,7 +34,7 @@ public class CustomerServicesTest {
 
 	@Test
 	public void customerServicesUpdate() {
-		Customer customer = new Customer("chris", "perrins");
+		Customer customer = new Customer("chris", "perrins", "c.perrins@yahoo.com", "8473783838");
 		customerServices.update(customer);
 		Mockito.verify(customerDao, Mockito.times(1)).update(customer);
 	}

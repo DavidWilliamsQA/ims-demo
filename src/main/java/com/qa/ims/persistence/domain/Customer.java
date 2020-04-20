@@ -8,18 +8,6 @@ public class Customer {
 	private String email;
 	private String phone;
 
-	public Customer(String firstName, String surname) {
-		this.firstName = firstName;
-		this.surname = surname;
-	}
-
-	public Customer(Long id, String firstName, String surname) {
-		super();
-		this.id = id;
-		this.firstName = firstName;
-		this.surname = surname;
-	}
-
 	public Customer(String firstName, String surname, String email, String phone) {
 		this.firstName = firstName;
 		this.surname = surname;
