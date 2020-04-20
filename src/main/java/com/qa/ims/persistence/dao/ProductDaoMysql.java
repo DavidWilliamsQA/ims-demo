@@ -2,6 +2,7 @@ package com.qa.ims.persistence.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -44,7 +45,7 @@ public class ProductDaoMysql implements Dao<Product> {
 	public List<Product> readAll() {
 		try (Connection connection = DriverManager.getConnection(connectionUrl, username, password);
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("select * from product_table");) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM product_table");) {
 			ArrayList<Product> product = new ArrayList<>();
 			while (resultSet.next()) {
 				product.add(productFromResultSet(resultSet));
@@ -73,11 +74,14 @@ public class ProductDaoMysql implements Dao<Product> {
 
 	@Override
 	public Product create(Product product) {
+		String query = "INSERT INTO product_table(name, price, stock_remaining) VALUES(?, ?, ?)";
 		try (Connection connection = DriverManager.getConnection(connectionUrl, username, password);
-				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("insert into product_table(name, price, stock_remaining) values('"
-					+ product.getName() + "', '" + product.getPrice() + "', '" + product.getStock() + "' )");
-			return readLatest();
+				PreparedStatement statement = connection.prepareStatement(query);) {
+			statement.setString(1, product.getName());
+			statement.setDouble(2, product.getPrice());
+			statement.setInt(3, product.getStock());
+			statement.executeUpdate();
+
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
 			LOGGER.error(e.getMessage());
@@ -86,11 +90,14 @@ public class ProductDaoMysql implements Dao<Product> {
 	}
 
 	public Product readProduct(Long id) {
+		String query = "SELECT * FROM product_table WHERE product_id = ?";
 		try (Connection connection = DriverManager.getConnection(connectionUrl, username, password);
-				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM product_table where product_id = " + id);) {
-			resultSet.next();
-			return productFromResultSet(resultSet);
+				PreparedStatement statement = connection.prepareStatement(query);) {
+			statement.setLong(1, id);
+			try (ResultSet resultSet = statement.executeQuery();) {
+				resultSet.next();
+				return productFromResultSet(resultSet);
+			}
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
 			LOGGER.error(e.getMessage());
@@ -100,10 +107,15 @@ public class ProductDaoMysql implements Dao<Product> {
 
 	@Override
 	public Product update(Product product) {
+		String query = "UPDATE product_table SET name = ?, price = ?, stock_remaining = ? WHERE product_id = ?";
 		try (Connection connection = DriverManager.getConnection(connectionUrl, username, password);
-				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("update product_table set name ='" + product.getName() + "', price ='"
-					+ product.getPrice() + "' where product_id =" + product.getId());
+				PreparedStatement statement = connection.prepareStatement(query);) {
+			statement.setString(1, product.getName());
+			statement.setDouble(2, product.getPrice());
+			statement.setInt(3, product.getStock());
+			statement.setLong(4, product.getId());
+
+			statement.executeUpdate();
 			return readProduct(product.getId());
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
@@ -115,9 +127,11 @@ public class ProductDaoMysql implements Dao<Product> {
 
 	@Override
 	public void delete(long id) {
+		String query = "DELETE FROM product_table WHERE product_id  = ?";
 		try (Connection connection = DriverManager.getConnection(connectionUrl, username, password);
-				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("delete from product_table where product_id = " + id);
+				PreparedStatement statement = connection.prepareStatement(query);) {
+			statement.setLong(1, id);
+			statement.executeUpdate();
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
 			LOGGER.error(e.getMessage());

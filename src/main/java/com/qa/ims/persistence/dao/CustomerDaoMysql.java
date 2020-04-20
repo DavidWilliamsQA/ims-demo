@@ -137,9 +137,6 @@ public class CustomerDaoMysql implements Dao<Customer> {
 			statement.setLong(5, customer.getId());
 
 			statement.executeUpdate();
-//			statement.executeUpdate("update customer_table set first_name ='" + customer.getFirstName()
-//					+ "', surname ='" + customer.getSurname() + "', email ='" + customer.getEmail()
-//					+ "', phone_number ='" + customer.getPhone() + "' where customer_id =" + customer.getId());
 			return readCustomer(customer.getId());
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
