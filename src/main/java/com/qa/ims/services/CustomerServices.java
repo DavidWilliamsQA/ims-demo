@@ -8,11 +8,11 @@ import com.qa.ims.persistence.domain.Customer;
 public class CustomerServices implements CrudServices<Customer> {
 
 	private Dao<Customer> customerDao;
-	
+
 	public CustomerServices(Dao<Customer> customerDao) {
 		this.customerDao = customerDao;
 	}
-	
+
 	public List<Customer> readAll() {
 		return customerDao.readAll();
 	}
