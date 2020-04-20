@@ -9,16 +9,15 @@ import com.qa.ims.services.CrudServices;
 import com.qa.ims.utils.Utils;
 
 public class ProductController implements CrudController<Product> {
-	
+
 	public static final Logger LOGGER = Logger.getLogger(ProductController.class);
-	
+
 	private CrudServices<Product> productService;
-	
+
 	public ProductController(CrudServices<Product> productService) {
 		this.productService = productService;
 	}
-	
-	
+
 	String getInput() {
 		return Utils.getInput();
 	}
@@ -26,7 +25,7 @@ public class ProductController implements CrudController<Product> {
 	@Override
 	public List<Product> readAll() {
 		List<Product> product = productService.readAll();
-		for(Product prod: product) {
+		for (Product prod : product) {
 			LOGGER.info(prod.toString());
 		}
 		return product;
@@ -62,11 +61,10 @@ public class ProductController implements CrudController<Product> {
 
 	@Override
 	public void delete() {
-		LOGGER.info("Please enter the if of the product you would like to delete");
+		LOGGER.info("Please enter the id of the product you would like to delete");
 		Long id = Long.valueOf(getInput());
 		productService.delete(id);
+		LOGGER.info("Product Deleted");
 	}
-	
-	
 
 }

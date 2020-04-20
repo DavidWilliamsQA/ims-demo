@@ -65,7 +65,7 @@ public class Ims {
 
 			if (!returnToPrevious) {
 				Action.printSecondaryActions();
-				action = Action.getAction();
+				action = Action.getSecondaryAction();
 				doAction(customerController, action);
 			}
 			imsSystem();
@@ -77,7 +77,7 @@ public class Ims {
 
 			if (!returnToPrevious) {
 				Action.printSecondaryActions();
-				action = Action.getAction();
+				action = Action.getSecondaryAction();
 				doAction(productController, action);
 			}
 			imsSystem();

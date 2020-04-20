@@ -31,6 +31,7 @@ public class CustomerController implements CrudController<Customer> {
 	 */
 	@Override
 	public List<Customer> readAll() {
+		LOGGER.info("This is the list of customers");
 		List<Customer> customers = customerService.readAll();
 		for (Customer customer : customers) {
 			LOGGER.info(customer.toString());
@@ -84,6 +85,7 @@ public class CustomerController implements CrudController<Customer> {
 		LOGGER.info("Please enter the id of the customer you would like to delete");
 		Long id = Long.valueOf(getInput());
 		customerService.delete(id);
+		LOGGER.info("Customer Deleted");
 	}
 
 }
