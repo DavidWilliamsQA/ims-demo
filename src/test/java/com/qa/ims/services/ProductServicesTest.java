@@ -42,7 +42,6 @@ public class ProductServicesTest {
 	@Test
 	public void productServicesDelete() {
 		productServices.delete(1L);
-		;
 		Mockito.verify(productDao, Mockito.times(1)).delete(1L);
 	}
 }
