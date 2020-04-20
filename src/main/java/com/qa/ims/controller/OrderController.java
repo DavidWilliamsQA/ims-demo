@@ -34,11 +34,13 @@ public class OrderController implements CrudController<Order> {
 
 	@Override
 	public Order create() {
+		// link the orderline table to this
 		return null;
 	}
 
 	@Override
 	public Order update() {
+		// link orderline table here as well
 		return null;
 	}
 
