@@ -2,6 +2,7 @@ package com.qa.ims.persistence.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -50,7 +51,7 @@ public class CustomerDaoMysql implements Dao<Customer> {
 	public List<Customer> readAll() {
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("select * from customer_table");) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM customer_table");) {
 			ArrayList<Customer> customers = new ArrayList<>();
 			while (resultSet.next()) {
 				customers.add(customerFromResultSet(resultSet));
@@ -84,11 +85,14 @@ public class CustomerDaoMysql implements Dao<Customer> {
 	 */
 	@Override
 	public Customer create(Customer customer) {
+		String query = "INSERT INTO customer_table(first_name, surname, email, phone_number) VALUES(?, ?, ?, ?)";
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
-				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("insert into customer_table(first_name, surname, email, phone_number) values('"
-					+ customer.getFirstName() + "', '" + customer.getSurname() + "', '" + customer.getEmail() + "', '"
-					+ customer.getPhone() + "' )");
+				PreparedStatement statement = connection.prepareStatement(query)) {
+			statement.setString(1, customer.getFirstName());
+			statement.setString(2, customer.getSurname());
+			statement.setString(3, customer.getEmail());
+			statement.setString(4, customer.getPhone());
+			statement.executeUpdate();
 			return readLatest();
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
@@ -98,12 +102,15 @@ public class CustomerDaoMysql implements Dao<Customer> {
 	}
 
 	public Customer readCustomer(Long id) {
+		String query = "SELECT * FROM customer_table WHERE customer_id = ?";
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
-				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement
-						.executeQuery("SELECT * FROM customer_table where customer_id = " + id);) {
-			resultSet.next();
-			return customerFromResultSet(resultSet);
+				PreparedStatement statement = connection.prepareStatement(query);) {
+			statement.setLong(1, id);
+			try (ResultSet resultSet = statement.executeQuery();) {
+				resultSet.next();
+				return customerFromResultSet(resultSet);
+			}
+
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
 			LOGGER.error(e.getMessage());
@@ -120,11 +127,19 @@ public class CustomerDaoMysql implements Dao<Customer> {
 	 */
 	@Override
 	public Customer update(Customer customer) {
+		String query = "UPDATE customer_table SET first_name = ?, surname = ?, email = ?, phone_number = ? WHERE customer_id =?";
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
-				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("update customer_table set first_name ='" + customer.getFirstName()
-					+ "', surname ='" + customer.getSurname() + "', email ='" + customer.getEmail()
-					+ "', phone_number ='" + customer.getPhone() + "' where customer_id =" + customer.getId());
+				PreparedStatement statement = connection.prepareStatement(query);) {
+			statement.setString(1, customer.getFirstName());
+			statement.setString(2, customer.getSurname());
+			statement.setString(3, customer.getEmail());
+			statement.setString(4, customer.getPhone());
+			statement.setLong(5, customer.getId());
+
+			statement.executeUpdate();
+//			statement.executeUpdate("update customer_table set first_name ='" + customer.getFirstName()
+//					+ "', surname ='" + customer.getSurname() + "', email ='" + customer.getEmail()
+//					+ "', phone_number ='" + customer.getPhone() + "' where customer_id =" + customer.getId());
 			return readCustomer(customer.getId());
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
@@ -140,9 +155,11 @@ public class CustomerDaoMysql implements Dao<Customer> {
 	 */
 	@Override
 	public void delete(long id) {
+		String query = "DELETE FROM customer_table WHERE customer_id = ?";
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
-				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("delete from customer_table where customer_id = " + id);
+				PreparedStatement statement = connection.prepareStatement(query);) {
+			statement.setLong(1, id);
+			statement.executeUpdate();
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
 			LOGGER.error(e.getMessage());

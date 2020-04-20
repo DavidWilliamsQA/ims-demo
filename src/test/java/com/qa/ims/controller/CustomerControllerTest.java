@@ -35,11 +35,6 @@ public class CustomerControllerTest {
 	private CustomerController customerController;
 
 	@Test
-	public void getInputTest() {
-
-	}
-
-	@Test
 	public void readAllTest() {
 		CustomerController customerController = new CustomerController(customerServices);
 		List<Customer> customers = new ArrayList<>();
