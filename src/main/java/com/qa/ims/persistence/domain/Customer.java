@@ -94,38 +94,46 @@ public class Customer {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Customer other = (Customer) obj;
 		if (email == null) {
 			if (other.email != null)
 				return false;
-		} else if (!email.equals(other.email))
+		} else if (!email.equals(other.email)) {
 			return false;
+		}
 		if (phone == null) {
 			if (other.phone != null)
 				return false;
-		} else if (!phone.equals(other.phone))
+		} else if (!phone.equals(other.phone)) {
 			return false;
+		}
 		if (firstName == null) {
 			if (other.firstName != null)
 				return false;
-		} else if (!firstName.equals(other.firstName))
+		} else if (!firstName.equals(other.firstName)) {
 			return false;
+		}
 		if (id == null) {
 			if (other.id != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!id.equals(other.id)) {
 			return false;
+		}
 		if (surname == null) {
 			if (other.surname != null)
 				return false;
-		} else if (!surname.equals(other.surname))
+		} else if (!surname.equals(other.surname)) {
 			return false;
+		}
 		return true;
 	}
 
