@@ -16,8 +16,8 @@ public class CustomerTest {
 
 	@Before
 	public void setUp() {
-		customer = new Customer(1L, "Chris", "Perrins", "uhfe", "jefie");
-		other = new Customer(1L, "Chris", "Perrins", "uhfe", "jefie");
+		customer = new Customer(1L, "Chris", "Perrins", "Chris.perrins@hotmail.com", "075622287631");
+		other = new Customer(1L, "Chris", "Perrins", "Chris.perrins@hotmail.com", "075622287631");
 	}
 
 	@Test
@@ -147,7 +147,7 @@ public class CustomerTest {
 
 	@Test
 	public void toStringTest() {
-		String toString = "id:1, firstName:Chris, surname:Perrins, Email:uhfe, Phone:jefie";
+		String toString = "id:1, firstName:Chris, surname:Perrins, Email:Chris.perrins@hotmail.com, Phone:075622287631";
 		assertEquals(toString, customer.toString());
 	}
 }

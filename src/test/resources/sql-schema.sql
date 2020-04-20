@@ -1,3 +1,6 @@
 create database if not exists ims;
 drop table if exists ims.customers;
-create table ims.customers(id int primary key auto_increment, first_name varchar(40), surname varchar(40));
+CREATE TABLE ims.customer_table(customer_id int AUTO_INCREMENT, first_name varchar(100) NOT NULL, surname varchar(100) NOT NULL, email varchar(150) NOT NULL, phone_number varchar(100) NOT NULL, UNIQUE(customer_id), PRIMARY KEY(customer_id));
+CREATE TABLE ims.product_table(product_id int AUTO_INCREMENT, name varchar(100) NOT NULL UNIQUE, price double NOT NULL, stock_remaining double NOT NULL, UNIQUE(product_id), PRIMARY KEY(product_id));
+CREATE TABLE ims.order_table(order_id int AUTO_INCREMENT, customer_id int NOT NULL, total int NOT NULL, date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, PRIMARY KEY(order_id), FOREIGN KEY (customer_id) REFERENCES customer_table(customer_id));
+CREATE TABLE ims.orderline_table(orderline int AUTO_INCREMENT, order_id int NOT NULL, product_id int NOT NULL, PRIMARY KEY(orderline), FOREIGN KEY (order_id) REFERENCES order_table(order_id), FOREIGN KEY (product_id) REFERENCES product_table(product_id));
