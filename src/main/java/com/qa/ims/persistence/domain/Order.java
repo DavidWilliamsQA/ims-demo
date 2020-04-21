@@ -73,8 +73,8 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "id:" + id + ", customerId:" + customerId + ", total:" + total + ", products:" + products + ", amount="
-				+ amount;
+		return "id:" + id + ", customerId:" + customerId + ", total:" + total + ", product ID:" + products.toString()
+				+ ", amount:" + amount.toString();
 	}
 
 	@Override
