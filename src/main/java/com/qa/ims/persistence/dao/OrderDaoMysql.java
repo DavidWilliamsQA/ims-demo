@@ -39,6 +39,7 @@ public class OrderDaoMysql implements Dao<Order> {
 
 		// there is no method in the resultSet for 'getlist' as there is
 		// in the others to 'getlong' and 'getdouble'
+		//
 		// so i am going to have to access the order id via the orderline table
 
 		String query = "SELECT * FROM orderline_table WHERE order_id = ?";
