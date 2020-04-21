@@ -36,7 +36,6 @@ public class CustomerController implements CrudController<Customer> {
 		for (Customer customer : customers) {
 			LOGGER.info(customer.toString());
 		}
-		LOGGER.info("END");
 		return customers;
 	}
 
@@ -54,7 +53,7 @@ public class CustomerController implements CrudController<Customer> {
 		LOGGER.info("Please enter a phone number");
 		String phone = getInput();
 		Customer customer = customerService.create(new Customer(firstName, surname, email, phone));
-		LOGGER.info("Customer created");
+		LOGGER.info("Customer Created!");
 		return customer;
 	}
 
@@ -74,7 +73,7 @@ public class CustomerController implements CrudController<Customer> {
 		LOGGER.info("Please enter a phone number");
 		String phone = getInput();
 		Customer customer = customerService.update(new Customer(id, firstName, surname, email, phone));
-		LOGGER.info("Customer Updated");
+		LOGGER.info("Customer Updated!");
 		return customer;
 	}
 
@@ -86,7 +85,7 @@ public class CustomerController implements CrudController<Customer> {
 		LOGGER.info("Please enter the id of the customer you would like to delete");
 		Long id = Long.valueOf(getInput());
 		customerService.delete(id);
-		LOGGER.info("Customer Deleted");
+		LOGGER.info("Customer Deleted!");
 	}
 
 }

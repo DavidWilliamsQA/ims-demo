@@ -1,5 +1,6 @@
 package com.qa.ims.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -28,28 +29,60 @@ public class OrderController implements CrudController<Order> {
 		for (Order ord : orders) {
 			LOGGER.info(ord.toString());
 		}
-		LOGGER.info("END");
 		return orders;
 	}
 
 	@Override
 	public Order create() {
-		// link the orderline table to this
-		return null;
+		ArrayList<Long> listOfProducts = new ArrayList<>();
+		ArrayList<Integer> listOfAmounts = new ArrayList<>();
+		String addMoreItems = "Y";
+
+		LOGGER.info("Which customer is making an order?");
+		Long custID = Long.valueOf(getInput());
+
+		while (addMoreItems.equals("Y")) {
+			LOGGER.info("Enter the Product ID of the Product you would like to add to the order");
+			listOfProducts.add(Long.valueOf(getInput()));
+			LOGGER.info("How many of this product would you like?");
+			listOfAmounts.add(Integer.valueOf(getInput()));
+			LOGGER.info("Would you like to add more products to this order? (Y/N)");
+			addMoreItems = getInput().toUpperCase();
+		}
+
+		Order order = orderService.create(new Order(custID, listOfProducts, listOfAmounts));
+		LOGGER.info("Order Created!");
+		return order;
 	}
 
 	@Override
 	public Order update() {
-		// link orderline table here as well
-		return null;
+		ArrayList<Long> listOfProducts = new ArrayList<>();
+		ArrayList<Integer> listOfAmounts = new ArrayList<>();
+		String addMoreItems = "Y";
+
+		LOGGER.info("What is the Order ID for the Order that you would like to update?");
+		Long ordID = Long.valueOf(getInput());
+		while (addMoreItems.equals("Y")) {
+			LOGGER.info("Enter the Product ID of the product you'd like to add to the order");
+			listOfProducts.add(Long.valueOf(getInput()));
+			LOGGER.info("How many of this product would you like?");
+			listOfAmounts.add(Integer.valueOf(getInput()));
+			LOGGER.info("Would you like to add more products to this order? (Y/N)");
+			addMoreItems = getInput().toUpperCase();
+		}
+
+		Order order = orderService.create(new Order(listOfProducts, listOfAmounts, ordID));
+		LOGGER.info("Order Updated!");
+		return order;
 	}
 
 	@Override
 	public void delete() {
-		LOGGER.info("Please enter the id of the order you would like to delete");
+		LOGGER.info("Please enter the ID of the order you would like to delete");
 		Long id = Long.valueOf(getInput());
 		orderService.delete(id);
-		LOGGER.info("Order Deleted");
+		LOGGER.info("Order Deleted!");
 	}
 
 }

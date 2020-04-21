@@ -13,11 +13,14 @@ import org.apache.log4j.Logger;
 import com.qa.ims.controller.Action;
 import com.qa.ims.controller.CrudController;
 import com.qa.ims.controller.CustomerController;
+import com.qa.ims.controller.OrderController;
 import com.qa.ims.controller.ProductController;
 import com.qa.ims.persistence.dao.CustomerDaoMysql;
+import com.qa.ims.persistence.dao.OrderDaoMysql;
 import com.qa.ims.persistence.dao.ProductDaoMysql;
 import com.qa.ims.persistence.domain.Domain;
 import com.qa.ims.services.CustomerServices;
+import com.qa.ims.services.OrderServices;
 import com.qa.ims.services.ProductServices;
 import com.qa.ims.utils.Utils;
 
@@ -25,7 +28,7 @@ public class Ims {
 
 	public static final Logger LOGGER = Logger.getLogger(Ims.class);
 	boolean returnToStart = true;
-	boolean returnToPrevious = false;
+	boolean returnToDomainSelect = false;
 	String username = "";
 	String password = "";
 
@@ -41,7 +44,7 @@ public class Ims {
 
 		init(username, password);
 
-		returnToPrevious = false;
+		returnToDomainSelect = false;
 
 		LOGGER.info("Which entity would you like to use?");
 
@@ -63,7 +66,7 @@ public class Ims {
 					new CustomerServices(new CustomerDaoMysql(username, password)));
 			doAction(customerController, action);
 
-			if (!returnToPrevious) {
+			if (!returnToDomainSelect) {
 				Action.printSecondaryActions();
 				action = Action.getSecondaryAction();
 				doAction(customerController, action);
@@ -75,7 +78,7 @@ public class Ims {
 					new ProductServices(new ProductDaoMysql(username, password)));
 			doAction(productController, action);
 
-			if (!returnToPrevious) {
+			if (!returnToDomainSelect) {
 				Action.printSecondaryActions();
 				action = Action.getSecondaryAction();
 				doAction(productController, action);
@@ -83,8 +86,16 @@ public class Ims {
 			imsSystem();
 			break;
 		case ORDER:
-			break;
-		case STOP:
+			OrderController orderController = new OrderController(
+					new OrderServices(new OrderDaoMysql(username, password)));
+			doAction(orderController, action);
+
+			if (!returnToDomainSelect) {
+				Action.printSecondaryActions();
+				action = Action.getSecondaryAction();
+				doAction(orderController, action);
+			}
+			imsSystem();
 			break;
 		default:
 			break;
@@ -107,7 +118,7 @@ public class Ims {
 			crudController.delete();
 			break;
 		case RETURN:
-			returnToPrevious = true;
+			returnToDomainSelect = true;
 			break;
 		case BEGINNING:
 			returnToStart = true;

@@ -6,7 +6,6 @@ public class Order {
 	private Long id;
 	private Long customerId;
 	private Double total;
-
 	private List<Long> products;
 	private List<Integer> amount;
 
@@ -14,6 +13,20 @@ public class Order {
 		this.id = id;
 		this.customerId = customerId;
 		this.total = total;
+		this.products = products;
+		this.amount = amount;
+	}
+
+	public Order(List<Long> products, List<Integer> amount, Long id) {
+		super();
+		this.id = id;
+		this.products = products;
+		this.amount = amount;
+	}
+
+	public Order(Long customerId, List<Long> products, List<Integer> amount) {
+		super();
+		this.customerId = customerId;
 		this.products = products;
 		this.amount = amount;
 	}
@@ -60,8 +73,8 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", customerId=" + customerId + ", total=" + total + ", products=" + products
-				+ ", amount=" + amount + "]";
+		return "id:" + id + ", customerId:" + customerId + ", total:" + total + ", products:" + products + ", amount="
+				+ amount;
 	}
 
 	@Override
