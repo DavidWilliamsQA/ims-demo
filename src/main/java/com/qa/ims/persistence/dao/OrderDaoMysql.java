@@ -33,7 +33,8 @@ public class OrderDaoMysql implements Dao<Order> {
 		this.password = password;
 	}
 
-	Order orderFromResultSet(ResultSet resultSet, Long id) throws SQLException {
+	Order orderFromResultSet(ResultSet resultSet) throws SQLException {
+		Long id = resultSet.getLong("order_id");
 		Long customer_id = resultSet.getLong("customer_id");
 		Double total = resultSet.getDouble("total");
 
@@ -75,7 +76,7 @@ public class OrderDaoMysql implements Dao<Order> {
 
 			String orderId = "order_table.order_id";
 			while (resultSet.next()) {
-				order.add(orderFromResultSet(resultSet, resultSet.getLong(orderId)));
+				order.add(orderFromResultSet(resultSet));
 			}
 			return order;
 		} catch (SQLException e) {
@@ -92,7 +93,7 @@ public class OrderDaoMysql implements Dao<Order> {
 						"SELECT order_table.order_id, order_table.customer_id, order_table.total, orderline_table.product_id, orderline_table.amount FROM order_table LEFT JOIN orderline_table ON order_table.order_id=orderline_table.order_id ORDER BY order_id DESC LIMIT 1");) {
 			resultSet.next();
 			String orderId = "order_table.order_id";
-			return orderFromResultSet(resultSet, resultSet.getLong(orderId));
+			return orderFromResultSet(resultSet);
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
 			LOGGER.error(e.getMessage());
@@ -114,7 +115,7 @@ public class OrderDaoMysql implements Dao<Order> {
 			try (ResultSet resultSet = statement.executeQuery();) {
 				resultSet.next();
 				String orderId = "order_table.order_id";
-				return orderFromResultSet(resultSet, resultSet.getLong(orderId));
+				return orderFromResultSet(resultSet);
 			}
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
