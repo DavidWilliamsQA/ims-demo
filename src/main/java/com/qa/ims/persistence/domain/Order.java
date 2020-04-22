@@ -17,6 +17,13 @@ public class Order {
 		this.amount = amount;
 	}
 
+	public Order(Long id, Long customerId, Double total) {
+		super();
+		this.id = id;
+		this.customerId = customerId;
+		this.total = total;
+	}
+
 	public Order(List<Long> products, List<Integer> amount, Long id) {
 		super();
 		this.id = id;
