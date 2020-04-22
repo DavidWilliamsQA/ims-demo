@@ -134,5 +134,28 @@ public class OrderDaoMysql implements Dao<Order> {
 	}
 
 	// Calculate the total
+	public Double totalCalculation(List<Long> products, List<Integer> amount) {
+		Double total = 0.00;
+		for (int i = 0; i < products.size(); i++) {
+			Long id = products.get(i);
+			String query = "SELECT price FROM product_table WHERE product_id = ?";
+			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+					PreparedStatement statement = connection.prepareStatement(query);) {
+				statement.setLong(1, id);
+				try (ResultSet resultSet = statement.executeQuery();) {
+					resultSet.next();
+					Double price = resultSet.getDouble(1);
+					Integer specificAmount = amount.get(i);
+					total = price * specificAmount;
+				}
+			} catch (Exception e) {
+				LOGGER.debug(e.getStackTrace());
+				LOGGER.error(e.getMessage());
+			}
+
+		}
+
+		return total;
+	}
 
 }
