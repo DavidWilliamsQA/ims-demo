@@ -74,7 +74,6 @@ public class OrderDaoMysql implements Dao<Order> {
 				ResultSet resultSet = statement.executeQuery("SELECT * FROM order_table");) {
 			ArrayList<Order> order = new ArrayList<>();
 
-			String orderId = "order_table.order_id";
 			while (resultSet.next()) {
 				order.add(orderFromResultSet(resultSet));
 			}
@@ -92,7 +91,6 @@ public class OrderDaoMysql implements Dao<Order> {
 				ResultSet resultSet = statement.executeQuery(
 						"SELECT order_table.order_id, order_table.customer_id, order_table.total, orderline_table.product_id, orderline_table.amount FROM order_table LEFT JOIN orderline_table ON order_table.order_id=orderline_table.order_id ORDER BY order_id DESC LIMIT 1");) {
 			resultSet.next();
-			String orderId = "order_table.order_id";
 			return orderFromResultSet(resultSet);
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
@@ -114,7 +112,6 @@ public class OrderDaoMysql implements Dao<Order> {
 			statement.setLong(1, id);
 			try (ResultSet resultSet = statement.executeQuery();) {
 				resultSet.next();
-				String orderId = "order_table.order_id";
 				return orderFromResultSet(resultSet);
 			}
 		} catch (Exception e) {
