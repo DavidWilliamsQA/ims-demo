@@ -34,8 +34,8 @@ public class OrderController implements CrudController<Order> {
 
 	@Override
 	public Order create() {
-		ArrayList<Long> listOfProducts = new ArrayList<Long>();
-		ArrayList<Integer> listOfAmounts = new ArrayList<Integer>();
+		ArrayList<Long> listOfProducts = new ArrayList<>();
+		ArrayList<Integer> listOfAmounts = new ArrayList<>();
 		String addMoreItems = "Y";
 
 		LOGGER.info("Which customer is making an order?");
@@ -57,8 +57,8 @@ public class OrderController implements CrudController<Order> {
 
 	@Override
 	public Order update() {
-		ArrayList<Long> listOfProducts = new ArrayList<Long>();
-		ArrayList<Integer> listOfAmounts = new ArrayList<Integer>();
+		ArrayList<Long> listOfProducts = new ArrayList<>();
+		ArrayList<Integer> listOfAmounts = new ArrayList<>();
 		String addMoreItems = "Y";
 
 		LOGGER.info("What is the Order ID for the Order that you would like to update?");

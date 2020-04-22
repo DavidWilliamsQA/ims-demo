@@ -35,7 +35,7 @@ public class OrderDaoMysql implements Dao<Order> {
 
 	Order orderFromResultSet(ResultSet resultSet) throws SQLException {
 		Long id = resultSet.getLong("order_id");
-		Long customer_id = resultSet.getLong("customer_id");
+		Long customerId = resultSet.getLong("customer_id");
 		Double total = resultSet.getDouble("total");
 
 		// there is no method in the resultSet for 'getlist' as there is
@@ -47,8 +47,8 @@ public class OrderDaoMysql implements Dao<Order> {
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				PreparedStatement statement = connection.prepareStatement(query);) {
 
-			List<Long> products = new ArrayList<Long>();
-			List<Integer> amount = new ArrayList<Integer>();
+			List<Long> products = new ArrayList<>();
+			List<Integer> amount = new ArrayList<>();
 			statement.setLong(1, id);
 
 			try (ResultSet result = statement.executeQuery();) {
@@ -58,7 +58,7 @@ public class OrderDaoMysql implements Dao<Order> {
 				}
 			}
 
-			return new Order(id, customer_id, total, products, amount);
+			return new Order(id, customerId, total, products, amount);
 		} catch (Exception e) {
 			LOGGER.info(e.getStackTrace());
 			LOGGER.info(e.getMessage());
