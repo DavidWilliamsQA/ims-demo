@@ -54,7 +54,7 @@ public class ProductController implements CrudController<Product> {
 		Double price = Double.valueOf(getInput());
 		LOGGER.info("Please enter the stock");
 		Integer stock = Integer.valueOf(getInput());
-		Product product = productService.update(new Product(id, name, price, stock));
+		Product product = productService.update(new Product(id, name, price, stock), id);
 		LOGGER.info("Product Updated!");
 		return product;
 	}

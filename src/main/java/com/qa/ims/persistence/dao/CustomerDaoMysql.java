@@ -126,7 +126,7 @@ public class CustomerDaoMysql implements Dao<Customer> {
 	 * @return
 	 */
 	@Override
-	public Customer update(Customer customer) {
+	public Customer update(Customer customer, Long id) {
 		String query = "UPDATE customer_table SET first_name = ?, surname = ?, email = ?, phone_number = ? WHERE customer_id =?";
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				PreparedStatement statement = connection.prepareStatement(query);) {
@@ -134,7 +134,7 @@ public class CustomerDaoMysql implements Dao<Customer> {
 			statement.setString(2, customer.getSurname());
 			statement.setString(3, customer.getEmail());
 			statement.setString(4, customer.getPhone());
-			statement.setLong(5, customer.getId());
+			statement.setLong(5, id);
 
 			statement.executeUpdate();
 			return readCustomer(customer.getId());

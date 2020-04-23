@@ -106,14 +106,14 @@ public class ProductDaoMysql implements Dao<Product> {
 	}
 
 	@Override
-	public Product update(Product product) {
+	public Product update(Product product, Long id) {
 		String query = "UPDATE product_table SET name = ?, price = ?, stock_remaining = ? WHERE product_id = ?";
 		try (Connection connection = DriverManager.getConnection(connectionUrl, username, password);
 				PreparedStatement statement = connection.prepareStatement(query);) {
 			statement.setString(1, product.getName());
 			statement.setDouble(2, product.getPrice());
 			statement.setInt(3, product.getStock());
-			statement.setLong(4, product.getId());
+			statement.setLong(4, id);
 
 			statement.executeUpdate();
 			return readProduct(product.getId());

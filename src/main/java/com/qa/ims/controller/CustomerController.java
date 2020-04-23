@@ -72,7 +72,7 @@ public class CustomerController implements CrudController<Customer> {
 		String email = getInput();
 		LOGGER.info("Please enter a phone number");
 		String phone = getInput();
-		Customer customer = customerService.update(new Customer(id, firstName, surname, email, phone));
+		Customer customer = customerService.update(new Customer(id, firstName, surname, email, phone), id);
 		LOGGER.info("Customer Updated!");
 		return customer;
 	}

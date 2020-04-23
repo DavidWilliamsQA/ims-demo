@@ -43,7 +43,7 @@ public class OrderDaoMysql implements Dao<Order> {
 		//
 		// so i am going to have to access the order id via the orderline table
 
-		String query = "SELECT * FROM orderline_table WHERE order_id = ?";
+		String query = "SELECT * FROM orderline_table WHERE orderId = ?";
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				PreparedStatement statement = connection.prepareStatement(query);) {
 
@@ -89,7 +89,7 @@ public class OrderDaoMysql implements Dao<Order> {
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();
 				ResultSet resultSet = statement.executeQuery(
-						"SELECT order_table.order_id, order_table.customer_id, order_table.total, orderline_table.product_id, orderline_table.amount FROM order_table LEFT JOIN orderline_table ON order_table.order_id=orderline_table.order_id ORDER BY order_id DESC LIMIT 1");) {
+						"SELECT order_table.order_id, order_table.customer_id, order_table.total, orderline_table.product_id, orderline_table.amount FROM order_table LEFT JOIN orderline_table ON order_table.order_id=orderline_table.orderId ORDER BY order_id DESC LIMIT 1");) {
 			resultSet.next();
 			return orderFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -102,7 +102,7 @@ public class OrderDaoMysql implements Dao<Order> {
 	@Override
 	public Order create(Order order) {
 		String queryOrdersInsert = "INSERT INTO order_table(customer_id, total) VALUES (?,?)";
-		String queryOrderlineInsert = "INSERT INTO orderline_table(order_id, product_id, amount) VALUES (?, ?, ?)";
+		String queryOrderlineInsert = "INSERT INTO orderline_table(orderId, product_id, amount) VALUES (?, ?, ?)";
 		String queryOrderIdSelect = "SELECT order_id FROM order_table ORDER BY order_id DESC LIMIT 1";
 
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
@@ -115,12 +115,12 @@ public class OrderDaoMysql implements Dao<Order> {
 
 			try (ResultSet resultset = statementOrderId.executeQuery();) {
 				resultset.next();
-				Long order_id = resultset.getLong("order_id");
+				Long orderId = resultset.getLong("order_id");
 				List<Long> products = order.getProducts();
 				List<Integer> amount = order.getAmount();
 
 				for (int i = 0; i < order.getProducts().size(); i++) {
-					statementOrderlineInsert.setLong(1, order_id);
+					statementOrderlineInsert.setLong(1, orderId);
 					statementOrderlineInsert.setLong(2, products.get(i));
 					statementOrderlineInsert.setDouble(3, amount.get(i));
 					statementOrderlineInsert.executeUpdate();
@@ -138,7 +138,7 @@ public class OrderDaoMysql implements Dao<Order> {
 	}
 
 	public Order readOrder(Long id) {
-		String query = "SELECT order_table.order_id, order_table.customer_id, order_table.total, orderline_table.product_id, orderline_table.amount FROM order_table LEFT JOIN orderline_table ON order_table.order_id=orderline_table.order_id WHERE order_id = ?";
+		String query = "SELECT order_table.order_id, order_table.customer_id, order_table.total, orderline_table.product_id, orderline_table.amount FROM order_table LEFT JOIN orderline_table ON order_table.order_id=orderline_table.orderId WHERE order_id = ?";
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				PreparedStatement statement = connection.prepareStatement(query);) {
 			statement.setLong(1, id);
@@ -154,15 +154,43 @@ public class OrderDaoMysql implements Dao<Order> {
 	}
 
 	@Override
-	public Order update(Order t) {
-		// TODO Auto-generated method stub
+	public Order update(Order order, Long customerId) {
+		String queryOrdersUpdate = "UPDATE order_table SET customer_id = ?, total = ? WHERE order_id = ?";
+		String queryOrderlineUpdate = "UPDATE orderline_table SET product_id = ?, amount = ? WHERE orderId = ?";
+
+		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+				PreparedStatement statementOrdersUpdate = connection.prepareStatement(queryOrdersUpdate);
+				PreparedStatement statementOrderlineUpdate = connection.prepareStatement(queryOrderlineUpdate);) {
+			statementOrdersUpdate.setLong(1, customerId);
+			statementOrdersUpdate.setLong(3, order.getId());
+
+			List<Long> products = order.getProducts();
+			List<Integer> amount = order.getAmount();
+
+			for (int i = 0; i < products.size(); i++) {
+				statementOrderlineUpdate.setLong(1, products.get(i));
+				statementOrderlineUpdate.setDouble(2, amount.get(i));
+				statementOrderlineUpdate.setLong(3, order.getId());
+				statementOrderlineUpdate.executeUpdate();
+			}
+
+			statementOrdersUpdate.setDouble(2, totalCalculation(products, amount));
+			statementOrdersUpdate.executeUpdate();
+
+			return readOrder(order.getId());
+
+		} catch (Exception e) {
+			LOGGER.debug(e.getStackTrace());
+			LOGGER.error(e.getMessage());
+		}
+
 		return null;
 	}
 
 	@Override
 	public void delete(long id) {
 		String queryOrder = "DELETE FROM order_table WHERE order_id = ?";
-		String queryOrderline = "DELETE FROM orderline_table WHERE order_id = ?";
+		String queryOrderline = "DELETE FROM orderline_table WHERE orderId = ?";
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				PreparedStatement statementOrder = connection.prepareStatement(queryOrder);
 				PreparedStatement statementOrderline = connection.prepareStatement(queryOrderline);) {

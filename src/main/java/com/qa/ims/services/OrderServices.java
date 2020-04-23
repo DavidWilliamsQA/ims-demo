@@ -24,8 +24,8 @@ public class OrderServices implements CrudServices<Order> {
 	}
 
 	@Override
-	public Order update(Order ord) {
-		return orderDao.update(ord);
+	public Order update(Order ord, Long customerId) {
+		return orderDao.update(ord, customerId);
 	}
 
 	@Override

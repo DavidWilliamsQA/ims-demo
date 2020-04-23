@@ -61,6 +61,9 @@ public class OrderController implements CrudController<Order> {
 		ArrayList<Integer> listOfAmounts = new ArrayList<>();
 		String addMoreItems = "Y";
 
+		LOGGER.info("Which customer is making an order?");
+		Long custID = Long.valueOf(getInput());
+
 		LOGGER.info("What is the Order ID for the Order that you would like to update?");
 		Long ordID = Long.valueOf(getInput());
 		while (addMoreItems.equals("Y")) {
@@ -72,7 +75,7 @@ public class OrderController implements CrudController<Order> {
 			addMoreItems = getInput().toUpperCase();
 		}
 
-		Order order = orderService.create(new Order(listOfProducts, listOfAmounts, ordID));
+		Order order = orderService.update(new Order(listOfProducts, listOfAmounts, ordID), custID);
 		LOGGER.info("Order Updated!");
 		return order;
 	}

@@ -8,7 +8,7 @@ import com.qa.ims.persistence.domain.Product;
 public class ProductServices implements CrudServices<Product> {
 
 	private Dao<Product> productDao;
-	
+
 	public ProductServices(Dao<Product> productDao) {
 		this.productDao = productDao;
 	}
@@ -21,8 +21,8 @@ public class ProductServices implements CrudServices<Product> {
 		return productDao.create(p);
 	}
 
-	public Product update(Product p) {
-		return productDao.update(p);
+	public Product update(Product p, Long productId) {
+		return productDao.update(p, productId);
 	}
 
 	public void delete(Long id) {

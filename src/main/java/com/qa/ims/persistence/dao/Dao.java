@@ -4,12 +4,12 @@ import java.util.List;
 
 public interface Dao<T> {
 
-    List<T> readAll();
-     
-    T create(T t);
-     
-    T update(T t);
-     
-    void delete(long id);
+	List<T> readAll();
+
+	T create(T t);
+
+	T update(T t, Long l);
+
+	void delete(long id);
+
 }
-	
