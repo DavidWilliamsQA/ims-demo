@@ -62,13 +62,13 @@ public class ProductControllerTest {
 	 */
 	@Test
 	public void updateTest() {
-		String id = "1";
+		Long id = 1L;
 		String name = "Bananna";
 		Double price = 6.25;
 		Integer stock = 80;
-		Mockito.doReturn(id, name, price.toString(), stock.toString()).when(productController).getInput();
+		Mockito.doReturn(id.toString(), name, price.toString(), stock.toString()).when(productController).getInput();
 		Product product = new Product(1L, name, price, stock);
-		Mockito.when(productServices.update(product)).thenReturn(product);
+		Mockito.when(productServices.update(product, id)).thenReturn(product);
 		assertEquals(product, productController.update());
 	}
 

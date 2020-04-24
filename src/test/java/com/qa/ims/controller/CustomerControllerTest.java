@@ -70,7 +70,7 @@ public class CustomerControllerTest {
 		String phone = "yhuj";
 		Mockito.doReturn(id.toString(), firstName, surname, email, phone).when(customerController).getInput();
 		Customer customer = new Customer(1L, firstName, surname, email, phone);
-		Mockito.when(customerServices.update(customer)).thenReturn(customer);
+		Mockito.when(customerServices.update(customer, id)).thenReturn(customer);
 		assertEquals(customer, customerController.update());
 	}
 

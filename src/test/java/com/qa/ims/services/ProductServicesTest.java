@@ -35,8 +35,8 @@ public class ProductServicesTest {
 	@Test
 	public void productServicesUpdate() {
 		Product product = new Product("Nutella", 1.75, 74);
-		productServices.update(product);
-		Mockito.verify(productDao, Mockito.times(1)).update(product);
+		productServices.update(product, 1L);
+		Mockito.verify(productDao, Mockito.times(1)).update(product, 1L);
 	}
 
 	@Test

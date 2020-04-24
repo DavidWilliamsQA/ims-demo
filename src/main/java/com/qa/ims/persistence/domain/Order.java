@@ -30,7 +30,6 @@ public class Order {
 	}
 
 	public Order(Long customerId, List<Long> products, List<Integer> amount) {
-		super();
 		this.customerId = customerId;
 		this.products = products;
 		this.amount = amount;

@@ -35,8 +35,8 @@ public class CustomerServicesTest {
 	@Test
 	public void customerServicesUpdate() {
 		Customer customer = new Customer("chris", "perrins", "c.perrins@yahoo.com", "8473783838");
-		customerServices.update(customer);
-		Mockito.verify(customerDao, Mockito.times(1)).update(customer);
+		customerServices.update(customer, 1L);
+		Mockito.verify(customerDao, Mockito.times(1)).update(customer, 1L);
 	}
 
 	@Test
