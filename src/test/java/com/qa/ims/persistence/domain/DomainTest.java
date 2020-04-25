@@ -21,7 +21,7 @@ public class DomainTest {
 	@Test
 	public void orderTest() {
 		Domain domain = Domain.ORDER;
-		assertTrue(domain.getDescription().toLowerCase().contains("items"));
+		assertTrue(domain.getDescription().toLowerCase().contains("order"));
 	}
 
 	@Test

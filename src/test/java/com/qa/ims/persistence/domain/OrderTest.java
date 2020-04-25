@@ -16,6 +16,8 @@ public class OrderTest {
 
 	private Order order;
 	private Order other;
+	private Order otherVariables;
+	private Order listVariables;
 	List<Long> products = new ArrayList<>();
 	List<Long> productsDiff = new ArrayList<>();
 	List<Integer> amount = new ArrayList<>();
@@ -27,6 +29,8 @@ public class OrderTest {
 		amountDiff.add(2);
 		order = new Order(1L, 1L, 5.0, products, amount);
 		other = new Order(1L, 1L, 5.0, products, amount);
+		otherVariables = new Order(1L, 1L, 3.0);
+		listVariables = new Order(products, amount, 1L);
 	}
 
 	@Test
