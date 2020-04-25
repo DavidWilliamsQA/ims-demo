@@ -28,6 +28,9 @@ After the project has been forked and opened in the IDE. Go to the project folde
 
 `mvn clean install`
 
+The output should be as follows:
+
+![](Project%20Documents/build%20success.JPG)
 
 
 ## Built With
