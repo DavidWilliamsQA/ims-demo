@@ -1,4 +1,3 @@
-Coverage: 34%
 # Inventory Management System
 
 This project took advantage of various technologies such as Google Cloud Platform (GCP), MySQL database, SonarQube, Nexus, Java, JUnit and Mockito to create an inventory management system. The project used Java as its code base, and was packaged using a Continuous Integration (CI) pipeline tool, Jenkins.
@@ -7,66 +6,36 @@ This project took advantage of various technologies such as Google Cloud Platfor
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
+1. Clone/fork the repo unto your computer.
+2. Open the project as a Maven project.
+3. Change the hardcoded MySQL links `jdbc:mysql://35.240.38.154:3306/` in the ims.java, CustomerDaoMysql.java, OrderDaoMysql.java and ProductDaoMysql.java to the link of your own MySQL server.
+
 ### Prerequisites
 
-What things you need to install the software and how to install them
+In order for this project to run, the computer needs to have java installed and the project needs to be built using maven. 
 
-```
-Give examples
-```
+A MySQL instance has to be set up and then linked as stated in number 3 above.
 
-### Installing
+## Testing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system. Break down into which tests and what they do
-
-### Unit Tests 
-
-Explain what these tests test, why and how to run them
-
-```
-Give an example
-```
-
-### Integration Tests 
-Explain what these tests test, why and how to run them
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
+The tests were written using Mockito and Junit. These test covered a good majority of the program that could be tested this inclused the controllers, the services and the domain classes. 
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+The project can be delopyed by 
 
 ## Built With
 
 * [Maven](https://maven.apache.org/) - Dependency Management
+* [Jenkins](https://www.jenkins.io/) - CI Pipeline Tool
+* [Eclipse](https://www.eclipse.org/) - IDE
+* [Java](https://www.java.com/en/download/) - Code Base
+* [Trello] (https://trello.com/) - Project Planning Kanban Board
+* [JUnit](https://junit.org/junit5/) - Testing Tool
+* [Mockito](https://site.mockito.org/) - Testing Tool
+* [GCP](https://cloud.google.com/) - Cloud Host
+* [SonarQube](https://www.sonarqube.org/) - Static Analysis Tool
+* [Nexus](https://www.sonatype.com/product-nexus-repository) - Artefact Repository
 
 ## Versioning
 
@@ -74,7 +43,8 @@ We use [SemVer](http://semver.org/) for versioning.
 
 ## Authors
 
-* **Chris Perrins** - *Initial work* - [christophperrins](https://github.com/christophperrins)
+* **Chris Perrins** - *Initial work* 
+* **David Williams**
 
 ## License
 
@@ -83,7 +53,6 @@ This project is licensed under the MIT license - see the [LICENSE.md](LICENSE.md
 *For help in [Choosing a license](https://choosealicense.com/)*
 
 ## Acknowledgments
+* **Chris Perrins** [christophperrins](https://github.com/christophperrins) for providing the initial code base.
+* **Nicholas Johnson** [nickrstewarttds](https://github.com/nickrstewarttds) for training in the fundamentals used in this project.
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
