@@ -32,6 +32,12 @@ The output should be as follows:
 
 ![](Project%20Documents/build%20success.JPG)
 
+After this is done, the jar file can now be run using the following command in the command line:
+
+`java -jar target/DavidWilliams-SoftwareMarch16-jar-with-dependencies.jar`
+
+The program should then prompt you to enter the username and password for the database and that's it! It is up and running.
+
 
 ## Built With
 
