@@ -51,6 +51,7 @@ The program should then prompt you to enter the username and password for the da
 * [GCP](https://cloud.google.com/) - Cloud Host
 * [SonarQube](https://www.sonarqube.org/) - Static Analysis Tool
 * [Nexus](https://www.sonatype.com/product-nexus-repository) - Artefact Repository
+* [Git](https://git-scm.com/) - Version Control System
 
 ## Versioning
 
@@ -58,8 +59,8 @@ We use [SemVer](http://semver.org/) for versioning.
 
 ## Authors
 
-* **Chris Perrins** - *Initial work* 
-* **David Williams**
+* **Chris Perrins** - *Initial code base* [christophperrins](https://github.com/christophperrins)
+* **David Williams** - *Extended the inital fork and implemented more features* [DavidWilliamsQA](https://github.com/DavidWilliamsQA)
 
 ## License
 
