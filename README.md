@@ -1,3 +1,4 @@
+Coverage: SonarQube-47.7%, JUnit-64.6%
 # Inventory Management System
 
 This project took advantage of various technologies such as Google Cloud Platform (GCP), MySQL database, SonarQube, Nexus, Java, JUnit and Mockito to create an inventory management system. The project used Java as its code base, and was packaged using a Continuous Integration (CI) pipeline tool, Jenkins.
