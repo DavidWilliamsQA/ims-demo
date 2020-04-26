@@ -3,6 +3,10 @@ Coverage: SonarQube-47.7%, JUnit-64.6%
 
 This project took advantage of various technologies such as Google Cloud Platform (GCP), MySQL database, SonarQube, Nexus, Java, JUnit and Mockito to create an inventory management system. The project used Java as its code base, and was packaged using a Continuous Integration (CI) pipeline tool, Jenkins.
 
+The Project Documentation folder contains the surefire report for the project.
+
+[Trello](https://trello.com/invite/b/8VrBZUgr/c8226a95095be8ad8ffd1ff6dd0de4df/iml-project) - Kanban Board contains the risk assessment also.
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
